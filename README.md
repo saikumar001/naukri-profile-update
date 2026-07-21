@@ -1,74 +1,34 @@
-# Naukri Profile Update
+# 🚀 Naukri Profile Auto-Updater
 
-This repository contains a small automation script that updates a Naukri resume headline automatically using Playwright.
+An automated bot built with Python and Playwright that logs into your Naukri account and makes a tiny update to your resume headline every day. This keeps your profile marked as "Recently Updated," keeping you at the top of recruiter search results!
 
-## What it does
+## ✨ Features
+* **100% Cloud-Based:** Runs entirely on GitHub Actions. No need to keep your PC on.
+* **Stealthy:** Uses Playwright-Stealth and randomized human-like typing/clicking delays to avoid bot detection.
+* **Secure:** Uses encrypted session cookies so your password is never exposed.
+* **Verifiable:** Outputs a clean success/failure summary directly to the GitHub Actions dashboard.
 
-- Opens the Naukri profile page in a headless browser
-- Loads cookies from either:
-  - the environment variable `NAUKRI_COOKIES`, or
-  - the local file `cookie.json`
-- Navigates to the Resume Headline section
-- Toggles the trailing period in the headline and saves the change
-- Prints a success or failure message for local runs and GitHub Actions
+## 🛠️ How to Set It Up for Yourself
 
-## Requirements
+### Step 1: Fork this Repository
+Click the **Fork** button at the top right of this page to create your own private copy of this code. 
 
-- Python 3.10+
-- Playwright
-- Playwright Stealth
+### Step 2: Get Your Naukri Cookies
+We use cookies to safely bypass the login screen.
+1. Download a cookie exporter extension for Chrome (like [Export cookie JSON file for Puppeteer/Playwright](https://chrome.google.com/webstore/detail/export-cookie-json-file-f/nmckfnbeljlehmilbdamobohkahaemcl)).
+2. Log into [Naukri.com](https://www.naukri.com) on your computer.
+3. Click the extension to copy your session cookies to your clipboard.
 
-## Setup
+### Step 3: Add Cookies to GitHub
+1. In your forked repository, go to **Settings** > **Secrets and variables** > **Actions**.
+2. Click **New repository secret**.
+3. Name it exactly: `NAUKRI_COOKIES`
+4. Paste your copied JSON cookies into the secret box and save.
 
-1. Create and activate a virtual environment:
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
+### Step 4: Enable the Automation
+1. Go to the **Actions** tab in your repository.
+2. Click the green button that says "I understand my workflows, go ahead and enable them".
+3. Click on **Update Naukri Profile** on the left.
+4. Click **Run workflow** to test it!
 
-2. Install dependencies:
-   ```bash
-   pip install playwright playwright-stealth
-   ```
-
-3. Install Playwright browsers:
-   ```bash
-   playwright install chromium
-   ```
-
-4. Add cookies:
-   - Option A: set the environment variable `NAUKRI_COOKIES`
-   - Option B: place a valid `cookie.json` file in the repo root
-
-## Usage
-
-Run the script locally:
-
-```bash
-python update_profile.py
-```
-
-## GitHub Actions workflow
-
-This repository includes a workflow file at [.github/workflows/update.yml](.github/workflows/update.yml).
-
-To use the same automation in another GitHub repository:
-
-1. Copy the workflow file into your repo.
-2. Add a secret named `NAUKRI_COOKIES` with a valid JSON array of cookies.
-3. Enable the workflow from the Actions tab.
-4. Optionally, run it manually with "Run workflow" or let it run on the schedule.
-
-> The workflow uses the `NAUKRI_COOKIES` secret, so it does not rely on a local cookie file in GitHub.
-
-## Notes
-
-- The script is intended for personal automation and should be used carefully.
-- Cookies may expire, so you may need to refresh them periodically.
-- For GitHub Actions, the script runs headless and writes a summary message if supported.
-
-## Files
-
-- `update_profile.py` - main automation script
-- `cookie.json` - local cookie backup file (if present)
-- `tests/test_update_naukri.py` - basic regression tests
+*Note: By default, this runs automatically at 10 AM, 2 PM, and 5 PM IST, Monday through Friday. You can change this schedule in `.github/workflows/update.yml`.*
