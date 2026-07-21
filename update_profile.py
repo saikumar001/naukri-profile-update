@@ -93,9 +93,8 @@ def update_naukri():
                 new_text = current_text + '.'
                 print("Action: Adding period.")
                 
-            # Clear text and type it out sequentially like a human
-            textarea.clear()
-            textarea.press_sequentially(new_text, delay=random.randint(30, 100))
+            # fill the textarea with the new headline
+            textarea.fill(new_text)
             
             # Human pause: quick check before saving
             time.sleep(random.uniform(0.5, 1.0))
