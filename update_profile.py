@@ -99,14 +99,27 @@ def update_naukri():
             # Human pause: quick check before saving
             time.sleep(random.uniform(0.5, 1.0))
             
-            # Click the Save button (using exact text match and a human click delay)
+            # Click the Save button
             page.locator("button:text-is('Save')").click(delay=random.randint(50, 150))
+            
+            # Pause to allow Naukri servers to process the save
+            time.sleep(4)
             
             # --- VERIFICATION STAGE ---
             print("Verifying update...")
             
-            # Click edit again to check what is actually saved on the server now
+            # Refresh the page to clear any success popups and get fresh server data
+            page.reload(wait_until="domcontentloaded")
+            time.sleep(random.uniform(2.0, 4.0))
+            
+            # Re-locate the widget since the page reloaded
+            widget = page.locator("div.widgetHead", has_text="Resume headline")
+            
+            # Click edit again
             widget.locator("span.edit").click(delay=random.randint(50, 150))
+            
+            # We need to re-declare the textarea locator after a page reload
+            textarea = page.locator("textarea#resumeHeadlineTxt")
             textarea.wait_for(state="visible")
             
             saved_text = textarea.input_value()
