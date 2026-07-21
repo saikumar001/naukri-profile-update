@@ -102,16 +102,39 @@ def update_naukri():
             # Click the Save button (using exact text match and a human click delay)
             page.locator("button:text-is('Save')").click(delay=random.randint(50, 150))
             
-            # Give the browser a moment to process the network request
-            time.sleep(3)
-            print("✅ Profile successfully updated!")
+            # --- VERIFICATION STAGE ---
+            print("Verifying update...")
             
-            # Final pause so you can see the success state when testing locally
+            # Click edit again to check what is actually saved on the server now
+            widget.locator("span.edit").click(delay=random.randint(50, 150))
+            textarea.wait_for(state="visible")
+            
+            saved_text = textarea.input_value()
+            
+            if saved_text == new_text:
+                success_msg = f"### ✅ Profile successfully updated!\n**New Headline:**\n> {saved_text}"
+                print(success_msg)
+            else:
+                success_msg = f"### ⚠️ Warning: Profile might not have updated correctly.\n**Expected:** {new_text}\n**Found:** {saved_text}"
+                print(success_msg)
+
+            # Write the result to the GitHub Actions UI dashboard
+            summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+            if summary_file:
+                with open(summary_file, "a", encoding="utf-8") as f:
+                    f.write(success_msg)
+            
             if not is_github_actions:
                 time.sleep(5)
             
         except Exception as e:
-            print(f"❌ Failed to update profile. Error: {e}")
+            error_msg = f"### ❌ Failed to update profile.\n**Error:** `{e}`"
+            print(error_msg)
+            
+            summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+            if summary_file:
+                with open(summary_file, "a", encoding="utf-8") as f:
+                    f.write(error_msg)
         
         finally:
             browser.close()
