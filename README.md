@@ -15,7 +15,7 @@ Click the **Fork** button at the top right of this page to create your own priva
 
 ### Step 2: Get Your Naukri Cookies
 We use cookies to safely bypass the login screen.
-1. Download a cookie exporter extension for Chrome (like [Export cookie JSON file for Puppeteer/Playwright](https://chrome.google.com/webstore/detail/export-cookie-json-file-f/nmckfnbeljlehmilbdamobohkahaemcl)).
+1. Download a cookie exporter extension for Chrome (like [Export cookie JSON file for Puppeteer/Playwright](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm)).
 2. Log into [Naukri.com](https://www.naukri.com) on your computer.
 3. Click the extension to copy your session cookies to your clipboard.
 
