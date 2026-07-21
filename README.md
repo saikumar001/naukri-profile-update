@@ -25,10 +25,13 @@ We use cookies to safely bypass the login screen.
 3. Name it exactly: `NAUKRI_COOKIES`
 4. Paste your copied JSON cookies into the secret box and save.
 
-### Step 4: Enable the Automation
-1. Go to the **Actions** tab in your repository.
-2. Click the green button that says "I understand my workflows, go ahead and enable them".
-3. Click on **Update Naukri Profile** on the left.
-4. Click **Run workflow** to test it!
-
-*Note: By default, this runs automatically at 10 AM, 2 PM, and 5 PM IST, Monday through Friday. You can change this schedule in `.github/workflows/update.yml`.*
+### Step 4: Match Your User-Agent (Crucial for Anti-Bot)
+To make the cloud server look exactly like your home computer, you need to match your User-Agent.
+1. On the exact same browser you used to get your cookies, Google the phrase: **"What is my user agent"** (Google will show it at the very top of the search results).
+2. Copy that entire string (it usually starts with `Mozilla/5.0...`).
+3. In your GitHub repository, open `update_profile.py` and click the pencil icon to edit it.
+4. Scroll down to around line 42 and replace my User-Agent string with yours:
+   ```python
+   context = browser.new_context(
+       user_agent="PASTE_YOUR_USER_AGENT_HERE"
+   )

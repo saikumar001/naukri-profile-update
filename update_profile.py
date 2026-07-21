@@ -37,7 +37,8 @@ def update_naukri():
         is_github_actions = os.environ.get("GITHUB_ACTIONS") == "true"
         browser = p.chromium.launch(headless=is_github_actions)
         
-        # ⚠️ CRITICAL: Replace the string below with your exact User-Agent
+        # ⚠️ CRITICAL: Replace the string below with YOUR exact User-Agent from the browser you used to get the cookies!
+        # You can find yours by Googling "What is my user agent"
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
         )
